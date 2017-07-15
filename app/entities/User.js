@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { core: { EventSourcedAggregate, Event } } = require('esdf');
+const { EventSourcedAggregate, Event } = require('esdf').core;
 
 const SALT_ROUNDS = 10;
 
