@@ -1,10 +1,9 @@
-const esdf = require('esdf');
+const { utils: { createAggregateLoader, Repository } } = require('esdf');
 
 module.exports = function() {
     this.requires('sink');
     this.provides('repository', function({ sink }) {
-        const loader = esdf.utils.createAggregateLoader(sink);
-        const repository = new esdf.utils.Repository(loader);
-        return repository;
+        const loader = createAggregateLoader(sink);
+        return new Repository(loader);
     });
 };

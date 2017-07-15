@@ -1,8 +1,5 @@
-const esdf = require('esdf');
+const { test: { DummyEventSink } } = require('esdf');
 
 module.exports = function() {
-    this.provides('sink', function() {
-        const eventSink = new esdf.test.DummyEventSink();
-        return eventSink;
-    });
+    this.provides('sink', () => new DummyEventSink());
 };

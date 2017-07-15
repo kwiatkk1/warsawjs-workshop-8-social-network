@@ -1,21 +1,24 @@
+const { CompositionManager } = require('app-compositor');
+
 const modules = [
+    require('./Modules/config'),
     require('./Modules/sink'),
-    require('./Modules/repository')
+    require('./Modules/repository'),
+    require('./Modules/services'),
+    require('./Modules/publisher'),
+    require('./Modules/subscriber'),
+    require('./Modules/streamer')
 ];
 
-const CompositionManager = require('app-compositor').CompositionManager;
 const app = new CompositionManager();
 
-app.runModules(modules).then(async function({ repository }) {
-    const User = require('./Entities/User');
+app.runModules(modules).then(async function({ streamer, subscriber, services }) {
+    streamer.start();
 
-    await repository.invoke(User, 'asdfasdf', async function (user) {
-        await user.register({ name: 'Jan', email: 'john.doe@example.com', password: 'test1' });
-        console.log('isRegistered: %s', user.isRegistered());
+    subscriber.queue('eventLogger').bind('*.*').listen(({ event, commit }) => {
+        console.log(event, commit);
     });
 
-    await repository.invoke(User, 'asdfasdf', async function (user) {
-        console.log('isRegistered: %s', user.isRegistered());
-    });
-
+    const registerUser = services.service('registerUser');
+    await registerUser({ userID: '12345', name: 'Jan', email: 'john.doe@example.com', password: 'test1' });
 }).done();
