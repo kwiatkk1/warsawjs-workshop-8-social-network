@@ -25,6 +25,17 @@ describe('User', function () {
             // then
             assert.equal(user.isRegistered(), true);
         });
+
+        it('should store users data', function () {
+            // given
+            const user = new User();
+
+            // when
+            user.register({ name: 'John Doe', email: 'john.doe@example.com' });
+
+            // then
+            assert.equal(user.getName(), 'John Doe');
+        });
     });
 
 });

@@ -1,8 +1,8 @@
 class User {
 
     constructor() {
-        this.name = undefined;
-        this.email = undefined;
+        this.name = null;
+        this.email = null;
     }
 
     /**
@@ -21,6 +21,22 @@ class User {
      */
     isRegistered() {
         return !!(this.name && this.email);
+    }
+
+    /**
+     *
+     * @return {String|*|undefined}
+     */
+    getName() {
+        return this.name;
+    }
+
+    /**
+     *
+     * @return {String|*|undefined}
+     */
+    getEmail() {
+        return this.email;
     }
 }
 
