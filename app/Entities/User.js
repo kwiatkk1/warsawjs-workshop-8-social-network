@@ -1,6 +1,10 @@
-class User {
+const { core: { EventSourcedAggregate, Event } } = require('esdf');
+
+class User extends EventSourcedAggregate {
 
     constructor() {
+        super();
+
         this.name = null;
         this.email = null;
     }
@@ -11,8 +15,16 @@ class User {
      * @param {String} email
      */
     register({ name, email }) {
-        this.name = name;
-        this.email = email;
+        this._stageEvent(new Event('Registered', { name, email }));
+    }
+
+    /**
+     *
+     * @param {Event} event
+     */
+    onRegistered(event) {
+        this.name = event.eventPayload.name;
+        this.email = event.eventPayload.email;
     }
 
     /**
