@@ -36,6 +36,19 @@ describe('User', function () {
             // then
             assert.equal(user.getName(), 'John Doe');
         });
+
+        it('should be idempotent', function () {
+            // given
+            const user = new User();
+            user.register({ name: 'John Doe', email: 'john.doe@example.com' });
+            const beforeCount = user.getStagedEvents().length;
+
+            // when
+            user.register({ name: 'John Doe', email: 'john.doe@example.com' });
+
+            // then
+            assert.equal(beforeCount, user.getStagedEvents().length);
+        });
     });
 
 });

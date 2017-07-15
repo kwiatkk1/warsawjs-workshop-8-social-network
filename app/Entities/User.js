@@ -15,7 +15,9 @@ class User extends EventSourcedAggregate {
      * @param {String} email
      */
     register({ name, email }) {
-        this._stageEvent(new Event('Registered', { name, email }));
+        if (!this.isRegistered()) {
+            this._stageEvent(new Event('Registered', {name, email}));
+        }
     }
 
     /**
