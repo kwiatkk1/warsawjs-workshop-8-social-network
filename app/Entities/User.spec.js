@@ -9,12 +9,22 @@ describe('User', function () {
             // given
             const user = new User();
 
-            // when
-            const isUserRegistered = user.isRegistered();
-
             // expect
-            assert.equal(isUserRegistered, false);
+            assert.equal(user.isRegistered(), false);
         })
+    });
+
+    describe('#register', function () {
+        it('should make the user registered', function () {
+            // given
+            const user = new User();
+
+            // when
+            user.register({ name: 'John Doe', email: 'john.doe@example.com' });
+
+            // then
+            assert.equal(user.isRegistered(), true);
+        });
     });
 
 });
