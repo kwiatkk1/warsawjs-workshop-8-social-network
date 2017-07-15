@@ -2,9 +2,10 @@
   "name": "@kwiatkk1/warsawjs-workshop-8-social-network",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./app/index.js",
   "scripts": {
-    "test": "mocha 'app/**/*.spec.js'"
+    "test": "mocha 'app/**/*.spec.js'",
+    "start": "node ./app"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,8 @@
     "mocha": "^3.4.2"
   },
   "dependencies": {
+    "app-compositor": "^0.4.0",
+    "bcrypt": "^1.0.2",
     "esdf": "^0.2.1"
   }
 }

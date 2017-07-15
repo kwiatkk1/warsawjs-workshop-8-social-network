@@ -1,4 +1,7 @@
+const bcrypt = require('bcrypt');
 const { core: { EventSourcedAggregate, Event } } = require('esdf');
+
+const SALT_ROUNDS = 10;
 
 class User extends EventSourcedAggregate {
 
@@ -13,10 +16,19 @@ class User extends EventSourcedAggregate {
      *
      * @param {String} name
      * @param {String} email
+     * @param {String} password
      */
-    register({ name, email }) {
+    async register({ name, email, password }) {
         if (!this.isRegistered()) {
-            this._stageEvent(new Event('Registered', {name, email}));
+
+            const salt = await bcrypt.genSalt(SALT_ROUNDS);
+            const hashedPassword = await bcrypt.hash(password, salt);
+
+            this._stageEvent(new Event('Registered', {
+                name,
+                email,
+                password: hashedPassword
+            }));
         }
     }
 
