@@ -3,13 +3,11 @@ const eventHandlers = {
         return Promise.all([
             db.ref(`/profiles/${commit.sequenceID}`).update({
                 ID: commit.sequenceID,
-                displayName: event.eventPayload.displayName,
-                posts: []
+                name: event.eventPayload.name,
+                email: event.eventPayload.email,
+                password: event.eventPayload.password
             })
         ]);
-    },
-    'User.MessagePosted': function(db, event, commit) {
-        return db.ref(`/profiles/${commit.sequenceID}/messages/${event.eventPayload.message.ID}`).update(event.eventPayload.message);
     }
 };
 
