@@ -60,3 +60,4 @@ typings/
 .env
 
 
+/firebase-config.secret.js
